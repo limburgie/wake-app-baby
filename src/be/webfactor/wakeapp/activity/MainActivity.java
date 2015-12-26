@@ -1,16 +1,26 @@
 package be.webfactor.wakeapp.activity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import be.webfactor.wakeapp.R;
 
+import java.util.Calendar;
+
 public class MainActivity extends Activity {
 
-	private int current = R.drawable.night;
+	private static final String ACTION_NAME = "wake_app";
+
+	private ImageView image;
+	private BroadcastReceiver alarmReceiver;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -21,16 +31,41 @@ public class MainActivity extends Activity {
 
 		setContentView(R.layout.main);
 
-		final ImageView image = (ImageView) findViewById(R.id.image);
-		image.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				if (current == R.drawable.day) {
-					current = R.drawable.night;
-				} else {
-					current = R.drawable.day;
-				}
-				image.setImageResource(current);
+		image = (ImageView) findViewById(R.id.image);
+
+		setTimer();
+		registerAlarmHandler();
+	}
+
+	private void setTimer() {
+		Calendar time = (Calendar) getIntent().getSerializableExtra("time");
+
+		Intent reminderIntent = new Intent();
+		reminderIntent.setAction(ACTION_NAME);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, reminderIntent, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarmManager.set(AlarmManager.RTC, time.getTimeInMillis(), pendingIntent);
+	}
+
+	private void registerAlarmHandler() {
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(ACTION_NAME);
+
+		alarmReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				image.setImageResource(R.drawable.day);
 			}
-		});
+		};
+
+		registerReceiver(alarmReceiver, intentFilter);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		unregisterReceiver(alarmReceiver);
 	}
 }

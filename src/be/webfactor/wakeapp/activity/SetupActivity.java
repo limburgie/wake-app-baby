@@ -43,6 +43,7 @@ public class SetupActivity extends Activity {
 	public void setTime(int hour, int minute) {
 		time.set(Calendar.HOUR_OF_DAY, hour);
 		time.set(Calendar.MINUTE, minute);
+		time.set(Calendar.SECOND, 0);
 
 		setTimeLabel();
 	}
