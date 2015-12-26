@@ -10,14 +10,21 @@ import be.webfactor.wakeapp.R;
 import be.webfactor.wakeapp.fragment.TimePickerFragment;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class SetupActivity extends Activity {
 
-	private static final DateFormat FORMAT = new SimpleDateFormat("H:mm");
+	private static final DateFormat FORMAT = DateFormat.getTimeInstance(DateFormat.SHORT);
+	private static final Calendar DEFAULT_TIME;
 
-	private Calendar time = Calendar.getInstance();
+	static {
+		DEFAULT_TIME = Calendar.getInstance();
+		DEFAULT_TIME.set(Calendar.HOUR_OF_DAY, 7);
+		DEFAULT_TIME.set(Calendar.MINUTE, 0);
+		DEFAULT_TIME.set(Calendar.SECOND, 0);
+	}
+
+	private Calendar time = DEFAULT_TIME;
 	private TextView timeLabelTextView;
 
 	@Override
@@ -25,14 +32,9 @@ public class SetupActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.setup);
-
 		timeLabelTextView = (TextView) findViewById(R.id.time_label);
 
 		setTimeLabel();
-	}
-
-	private void setTimeLabel() {
-		timeLabelTextView.setText(FORMAT.format(time.getTime()));
 	}
 
 	public void showTimePicker(View view) {
@@ -43,9 +45,12 @@ public class SetupActivity extends Activity {
 	public void setTime(int hour, int minute) {
 		time.set(Calendar.HOUR_OF_DAY, hour);
 		time.set(Calendar.MINUTE, minute);
-		time.set(Calendar.SECOND, 0);
 
 		setTimeLabel();
+	}
+
+	private void setTimeLabel() {
+		timeLabelTextView.setText(FORMAT.format(time.getTime()));
 	}
 
 	public void start(View view) {
