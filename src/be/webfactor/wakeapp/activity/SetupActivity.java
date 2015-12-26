@@ -15,7 +15,7 @@ import java.util.Calendar;
 
 public class SetupActivity extends Activity {
 
-	private static final DateFormat FORMAT = new SimpleDateFormat("HH:mm");
+	private static final DateFormat FORMAT = new SimpleDateFormat("H:mm");
 
 	private Calendar time = Calendar.getInstance();
 	private TextView timeLabelTextView;
