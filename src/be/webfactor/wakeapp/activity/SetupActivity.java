@@ -61,6 +61,10 @@ public class SetupActivity extends Activity {
 	}
 
 	public void start(View view) {
+		if (time.getTime().before(Calendar.getInstance().getTime())) {
+			time.add(Calendar.DAY_OF_YEAR, 1);
+		}
+
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra(TimeConstants.TIME_PARAM_NAME, time);
 		startActivity(intent);
