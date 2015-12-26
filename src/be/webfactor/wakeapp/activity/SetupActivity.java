@@ -14,7 +14,6 @@ import java.util.Calendar;
 
 public class SetupActivity extends Activity {
 
-	private static final DateFormat FORMAT = DateFormat.getTimeInstance(DateFormat.SHORT);
 	private static final Calendar DEFAULT_TIME;
 
 	static {
@@ -50,7 +49,9 @@ public class SetupActivity extends Activity {
 	}
 
 	private void setTimeLabel() {
-		timeLabelTextView.setText(FORMAT.format(time.getTime()));
+		DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getApplicationContext());
+
+		timeLabelTextView.setText(timeFormat.format(time.getTime()));
 	}
 
 	public void start(View view) {
