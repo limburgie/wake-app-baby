@@ -4,12 +4,15 @@
 			  android:layout_width="fill_parent"
 			  android:layout_height="fill_parent" android:gravity="center">
 
+	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+			  android:textSize="20sp" android:text="@string/wake_up_at"/>
 	<TextView android:id="@+id/time_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			  android:textSize="50sp"/>
+			  android:text="7:00" android:textSize="50sp" android:textColor="#fff"/>
+	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/update"
+			android:onClick="showTimePicker" android:layout_marginTop="7dp"/>
 
-	<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Change time"
-			android:onClick="showTimePicker"/>
-
-	<ImageButton android:layout_width="100dp" android:layout_height="100dp" android:layout_margin="25dp"
-				 android:background="@drawable/sleep" android:onClick="start"/>
+	<ImageButton android:layout_width="100dp" android:layout_height="100dp" android:layout_marginTop="50dp"
+				 android:layout_marginBottom="10dp" android:background="@drawable/sleep"/>
+	<Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/sleep_tight" android:onClick="start"/>
 </LinearLayout>
