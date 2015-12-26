@@ -50,7 +50,7 @@ public class SetupActivity extends Activity {
 
 	public void start(View view) {
 		Intent intent = new Intent(this, MainActivity.class);
-		intent.putExtra("time", time);
+		intent.putExtra(ActivityConstants.TIME_PARAM, time);
 		startActivity(intent);
 	}
 }

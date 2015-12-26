@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 	}
 
 	private void setTimer() {
-		Calendar time = (Calendar) getIntent().getSerializableExtra("time");
+		Calendar time = (Calendar) getIntent().getSerializableExtra(ActivityConstants.TIME_PARAM);
 
 		Intent reminderIntent = new Intent();
 		reminderIntent.setAction(ACTION_NAME);
