@@ -1,4 +1,4 @@
-package be.webfactor.wakeapp;
+package be.webfactor.wakeapp.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import be.webfactor.wakeapp.R;
 
 public class MainActivity extends Activity {
 
