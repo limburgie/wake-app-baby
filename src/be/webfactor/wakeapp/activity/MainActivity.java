@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import be.webfactor.wakeapp.R;
+import be.webfactor.wakeapp.constants.TimeConstants;
 
 import java.util.Calendar;
 
@@ -38,7 +39,7 @@ public class MainActivity extends Activity {
 	}
 
 	private void setTimer() {
-		Calendar time = (Calendar) getIntent().getSerializableExtra(ActivityConstants.TIME_PARAM);
+		Calendar time = (Calendar) getIntent().getSerializableExtra(TimeConstants.TIME_PARAM_NAME);
 
 		Intent reminderIntent = new Intent();
 		reminderIntent.setAction(ACTION_NAME);

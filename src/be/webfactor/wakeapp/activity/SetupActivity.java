@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import be.webfactor.wakeapp.R;
+import be.webfactor.wakeapp.constants.TimeConstants;
 import be.webfactor.wakeapp.fragment.TimePickerFragment;
 
 import java.text.DateFormat;
@@ -18,8 +19,8 @@ public class SetupActivity extends Activity {
 
 	static {
 		DEFAULT_TIME = Calendar.getInstance();
-		DEFAULT_TIME.set(Calendar.HOUR_OF_DAY, 7);
-		DEFAULT_TIME.set(Calendar.MINUTE, 0);
+		DEFAULT_TIME.set(Calendar.HOUR_OF_DAY, TimeConstants.DEFAULT_HOUR);
+		DEFAULT_TIME.set(Calendar.MINUTE, TimeConstants.DEFAULT_MINUTE);
 		DEFAULT_TIME.set(Calendar.SECOND, 0);
 	}
 
@@ -38,6 +39,11 @@ public class SetupActivity extends Activity {
 
 	public void showTimePicker(View view) {
 		DialogFragment newFragment = new TimePickerFragment();
+
+		Bundle args = new Bundle();
+		args.putSerializable(TimeConstants.TIME_PARAM_NAME, time);
+		newFragment.setArguments(args);
+
 		newFragment.show(getFragmentManager(), "timePicker");
 	}
 
@@ -56,7 +62,7 @@ public class SetupActivity extends Activity {
 
 	public void start(View view) {
 		Intent intent = new Intent(this, MainActivity.class);
-		intent.putExtra(ActivityConstants.TIME_PARAM, time);
+		intent.putExtra(TimeConstants.TIME_PARAM_NAME, time);
 		startActivity(intent);
 	}
 }
