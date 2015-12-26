@@ -2,6 +2,7 @@ package be.webfactor.wakeapp.activity;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -44,5 +45,11 @@ public class SetupActivity extends Activity {
 		time.set(Calendar.MINUTE, minute);
 
 		setTimeLabel();
+	}
+
+	public void start(View view) {
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra("time", time);
+		startActivity(intent);
 	}
 }
