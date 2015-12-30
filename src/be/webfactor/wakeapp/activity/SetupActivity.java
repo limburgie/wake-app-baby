@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import be.webfactor.wakeapp.R;
@@ -61,9 +62,14 @@ public class SetupActivity extends Activity {
 	}
 
 	public void start(View view) {
-		if (time.getTime().before(Calendar.getInstance().getTime())) {
+		Calendar now = Calendar.getInstance();
+
+		time.set(Calendar.DAY_OF_YEAR, now.get(Calendar.DAY_OF_YEAR));
+		if (time.getTime().before(now.getTime())) {
 			time.add(Calendar.DAY_OF_YEAR, 1);
 		}
+		Log.e("Configured time: ", time.getTime().toString());
+		Log.e("Current time: ", now.getTime().toString());
 
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra(TimeConstants.TIME_PARAM_NAME, time);
