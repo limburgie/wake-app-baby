@@ -12,7 +12,7 @@
 			android:onClick="showTimePicker" android:layout_marginTop="7dp"/>
 
 	<ImageButton android:layout_width="100dp" android:layout_height="100dp" android:layout_marginTop="50dp"
-				 android:layout_marginBottom="10dp" android:background="@drawable/sleep"/>
+				 android:background="@drawable/sleep"/>
 	<Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/sleep_tight" android:onClick="start" android:layout_marginTop="5dp"/>
+			android:text="@string/sleep_tight" android:onClick="start"/>
 </LinearLayout>

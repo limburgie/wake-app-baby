@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Wake app, baby!</string>
+	<string name="app_name">Wake app, sunshine!</string>
 	<string name="wake_up_at">Wake up at</string>
-	<string name="update">Update</string>
+	<string name="update">Change</string>
 	<string name="sleep_tight">Sleep tight!</string>
 </resources>
