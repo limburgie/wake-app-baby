@@ -23,7 +23,6 @@ public class MainActivity extends Activity {
 	private ImageView image;
 	private BroadcastReceiver alarmReceiver;
 
-	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -64,7 +63,6 @@ public class MainActivity extends Activity {
 		registerReceiver(alarmReceiver, intentFilter);
 	}
 
-	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 

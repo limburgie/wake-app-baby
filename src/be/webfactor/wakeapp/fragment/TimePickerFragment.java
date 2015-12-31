@@ -9,20 +9,15 @@ import android.widget.TimePicker;
 import be.webfactor.wakeapp.activity.SetupActivity;
 import be.webfactor.wakeapp.constants.TimeConstants;
 
-import java.util.Calendar;
-
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
-	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		final Calendar c = (Calendar) getArguments().getSerializable(TimeConstants.TIME_PARAM_NAME);
-		int hour = c.get(Calendar.HOUR_OF_DAY);
-		int minute = c.get(Calendar.MINUTE);
+		int hour = getArguments().getInt(TimeConstants.HOUR_PARAM_NAME);
+		int minute = getArguments().getInt(TimeConstants.MINUTE_PARAM_NAME);
 
 		return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
 	}
 
-	@Override
 	public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 		SetupActivity activity = (SetupActivity) getActivity();
 		activity.setTime(hour, minute);

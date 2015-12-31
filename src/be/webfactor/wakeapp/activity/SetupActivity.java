@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import be.webfactor.wakeapp.R;
@@ -16,19 +15,11 @@ import java.util.Calendar;
 
 public class SetupActivity extends Activity {
 
-	private static final Calendar DEFAULT_TIME;
+	private int hour = TimeConstants.DEFAULT_HOUR;
+	private int minute = TimeConstants.DEFAULT_MINUTE;
 
-	static {
-		DEFAULT_TIME = Calendar.getInstance();
-		DEFAULT_TIME.set(Calendar.HOUR_OF_DAY, TimeConstants.DEFAULT_HOUR);
-		DEFAULT_TIME.set(Calendar.MINUTE, TimeConstants.DEFAULT_MINUTE);
-		DEFAULT_TIME.set(Calendar.SECOND, 0);
-	}
-
-	private Calendar time = DEFAULT_TIME;
 	private TextView timeLabelTextView;
 
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -42,15 +33,16 @@ public class SetupActivity extends Activity {
 		DialogFragment newFragment = new TimePickerFragment();
 
 		Bundle args = new Bundle();
-		args.putSerializable(TimeConstants.TIME_PARAM_NAME, time);
+		args.putInt(TimeConstants.HOUR_PARAM_NAME, hour);
+		args.putInt(TimeConstants.MINUTE_PARAM_NAME, minute);
 		newFragment.setArguments(args);
 
 		newFragment.show(getFragmentManager(), "timePicker");
 	}
 
 	public void setTime(int hour, int minute) {
-		time.set(Calendar.HOUR_OF_DAY, hour);
-		time.set(Calendar.MINUTE, minute);
+		this.hour = hour;
+		this.minute = minute;
 
 		setTimeLabel();
 	}
@@ -58,21 +50,25 @@ public class SetupActivity extends Activity {
 	private void setTimeLabel() {
 		DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getApplicationContext());
 
+		Calendar time = Calendar.getInstance();
+		time.set(Calendar.HOUR_OF_DAY, hour);
+		time.set(Calendar.MINUTE, minute);
+
 		timeLabelTextView.setText(timeFormat.format(time.getTime()));
 	}
 
 	public void start(View view) {
-		Calendar now = Calendar.getInstance();
+		Calendar configured = Calendar.getInstance();
+		configured.set(Calendar.HOUR_OF_DAY, hour);
+		configured.set(Calendar.MINUTE, minute);
+		configured.set(Calendar.SECOND, 0);
 
-		time.set(Calendar.DAY_OF_YEAR, now.get(Calendar.DAY_OF_YEAR));
-		if (time.getTime().before(now.getTime())) {
-			time.add(Calendar.DAY_OF_YEAR, 1);
+		if (configured.getTime().before(Calendar.getInstance().getTime())) {
+			configured.add(Calendar.DAY_OF_YEAR, 1);
 		}
-		Log.e("Configured time: ", time.getTime().toString());
-		Log.e("Current time: ", now.getTime().toString());
 
 		Intent intent = new Intent(this, MainActivity.class);
-		intent.putExtra(TimeConstants.TIME_PARAM_NAME, time);
+		intent.putExtra(TimeConstants.TIME_PARAM_NAME, configured);
 		startActivity(intent);
 	}
 }
