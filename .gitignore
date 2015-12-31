@@ -1,3 +1,5 @@
 *.iml
 .idea
 gen
+out
+proguard_logs
